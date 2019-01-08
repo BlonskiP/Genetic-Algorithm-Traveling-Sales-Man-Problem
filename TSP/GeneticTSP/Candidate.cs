@@ -8,5 +8,7 @@ namespace GeneticTSP
 {
     class Candidate
     {
+        public List<int> chromoson;
+        public int generation;
     }
 }
