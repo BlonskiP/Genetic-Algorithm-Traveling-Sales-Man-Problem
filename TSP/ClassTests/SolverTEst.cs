@@ -1,14 +1,17 @@
 ﻿using System;
+using GeneticTSP;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ClassTests
 {
     [TestClass]
-    public class UnitTest1
+    public class SolverTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void StopTest()
         {
+            GeneticSolver solver = new GeneticSolver();
+            solver.Solve();
         }
     }
 }

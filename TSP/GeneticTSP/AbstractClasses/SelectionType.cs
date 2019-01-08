@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GeneticTSP
 {
-    abstract class SelectionType
+    public abstract class SelectionType
     {
     }
 }
