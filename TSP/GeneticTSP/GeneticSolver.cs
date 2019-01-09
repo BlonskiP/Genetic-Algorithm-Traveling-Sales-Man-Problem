@@ -17,6 +17,7 @@ namespace GeneticTSP
         CrossoverType crossover;
         List<Candidate> population;
         List<Candidate> Parents;
+
         int maxPopulationSize;
         int MaxTime;
         Stopwatch time;
@@ -32,6 +33,7 @@ namespace GeneticTSP
             rnd = new Random();
             this.MaxTime = MaxTime;
             results = new List<float>();
+
         }
         public GeneticSolver() {
             MaxTime = 10;
@@ -42,6 +44,7 @@ namespace GeneticTSP
             List<Candidate> newPopulation;
             List<Candidate> mutants = new List<Candidate>();
             population = randomPopulation(); //create random population
+            bestCandidate = population[0];
             time = Stopwatch.StartNew();
             while (time.ElapsedMilliseconds < MaxTime * 1000)
             {
@@ -59,7 +62,7 @@ namespace GeneticTSP
             
             time.Stop();
 
-            return findBest(population);
+            return bestCandidate;
         }
 
         public Candidate randomCandidate() //only 1st generation
@@ -102,6 +105,10 @@ namespace GeneticTSP
                     bestScore = candidate.fitness;
                     best = candidate;
                 }
+            }
+            if(best.fitness<bestCandidate.fitness)
+            {
+                bestCandidate = best;
             }
             return best;
         }
