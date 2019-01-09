@@ -10,6 +10,7 @@ namespace GeneticTSP
 {
     public class GeneticSolver
     {
+        Random rnd;
         public AdjacencyMatrix matrix;
         MutationType mutation;
         SelectionType selector;
@@ -26,7 +27,7 @@ namespace GeneticTSP
             this.mutation = mutation;
             maxPopulationSize = populationSize;
             selector = selectionType;
-            
+            rnd = new Random();
         }
         public GeneticSolver() {
             MaxTime = 10;
@@ -51,7 +52,7 @@ namespace GeneticTSP
 
         public Candidate randomCandidate() //only 1st generation
         {
-            Random rnd = new Random();
+            
             List<int> chromosone = new List<int>();
             List<int> verticles = new List<int>();
             for(int i=1;i<matrix.CostMatrix.GetLength(0);i++)
@@ -60,7 +61,8 @@ namespace GeneticTSP
             }
             while(verticles.Count!=0)
             {
-               int verticle = rnd.Next(0, verticles.Count());//random verticle
+               
+                int verticle = rnd.Next()%verticles.Count();//random verticle
                 chromosone.Add(verticles[verticle]);
                 verticles.RemoveAt(verticle);
             }
