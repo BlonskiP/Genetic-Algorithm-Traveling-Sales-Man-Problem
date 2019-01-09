@@ -13,10 +13,12 @@ namespace GeneticTSP
         public float fitness;
         GeneticSolver solver;
 
-        Candidate(int generation, List<int> genotype)
+        public Candidate(int generation, List<int> genotype, GeneticSolver solver)
         {
             this.generation = generation;
+            this.solver = solver;
             chromoson = genotype;
+            CountFitness();
         }
         public void CountFitness() {
             fitness = solver.matrix.countCost(chromoson);

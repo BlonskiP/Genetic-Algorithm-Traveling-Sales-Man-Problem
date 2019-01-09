@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace GeneticTSP
 {
-    public abstract class SelectionType
+    public abstract class CrossoverType
     {
-        
     }
 }

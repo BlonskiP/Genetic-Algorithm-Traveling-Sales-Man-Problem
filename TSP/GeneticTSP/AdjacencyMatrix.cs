@@ -34,18 +34,18 @@ namespace GeneticTSP
                 }
                 i++;
             }
-
-
         }
+        public AdjacencyMatrix() { }//for test only
 
         public float countCost(List<int> path)
         {
             float tourCost = 0;
+            tourCost += CostMatrix[0, path[0]]; //0 to first index
             for (int i = 0; i < path.Count() - 1; i++)
             {
                 tourCost += CostMatrix[path[i], path[i + 1]];
             }
-
+            tourCost += CostMatrix[path.Count, 0];//last index to 0
             return tourCost;
         }
     }

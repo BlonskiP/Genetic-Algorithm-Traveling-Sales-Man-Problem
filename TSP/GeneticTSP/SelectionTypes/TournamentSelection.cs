@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeneticTSP
+namespace GeneticTSP.SelectionTypes
 {
-    public abstract class SelectionType
+    class TournamentSelection : SelectionType
     {
-        
+
     }
 }
