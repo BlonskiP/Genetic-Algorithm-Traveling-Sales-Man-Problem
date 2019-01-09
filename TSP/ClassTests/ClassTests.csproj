@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdjacencyMatrixTest.cs" />
+    <Compile Include="MutationTest.cs" />
     <Compile Include="PMXTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SolverTest.cs" />

@@ -61,7 +61,7 @@
     </Compile>
     <Compile Include="GeneticSolver.cs" />
     <Compile Include="AbstractClasses\MutationType.cs" />
-    <Compile Include="MutationTypes\MutationPMX.cs" />
+    <Compile Include="MutationTypes\InversionMutation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AbstractClasses\SelectionType.cs" />

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 using GeneticTSP;
+using GeneticTSP.CrossoverTypes;
+using GeneticTSP.MutationTypes;
 using GeneticTSP.SelectionTypes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -22,12 +24,12 @@ namespace ClassTests
             file = root + "\\bays29.xml";
             XDocument tspFile = XDocument.Load(file);
             AdjacencyMatrix testMatrix = new AdjacencyMatrix(tspFile);
-            GeneticSolver solver = new GeneticSolver(testMatrix, null, null, populationSize, 0);
-            List<Candidate> listCand = solver.randomPopulation();
+            PMXCrossover crossover = new PMXCrossover();
+            TournamentSelection selector = new TournamentSelection(10);
+            InversionMutation inv = new InversionMutation((float)0.05);
 
-
-            TournamentSelection selector = new TournamentSelection(2);
-            listCand = selector.generateBreedingPool(listCand);
+            GeneticSolver solver = new GeneticSolver(testMatrix, inv, crossover, selector, populationSize, 10);
+          //  listCand = selector.generateBreedingPool(listCand);
 
         }
     }

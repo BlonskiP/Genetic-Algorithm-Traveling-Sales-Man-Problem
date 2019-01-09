@@ -182,5 +182,20 @@ namespace GeneticTSP.CrossoverTypes
            
             return x;
         }
+
+        public override List<Candidate> CrossoverPopulation(List<Candidate> population)
+        {
+            int parentX;
+            int parentY;
+            List<Candidate> newPopulation = new List<Candidate>();
+            int size = population.Count / 2;
+            for(int i=0; i<size;i++)
+            {
+                parentX =rnd.Next(0, population.Count());
+                parentY =rnd.Next(0, population.Count());
+                newPopulation.AddRange(Crossover(population[parentX], population[parentY]));
+            }
+            return newPopulation;
+        }
     }
 }

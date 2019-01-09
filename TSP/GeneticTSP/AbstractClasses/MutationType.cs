@@ -8,6 +8,7 @@ namespace GeneticTSP
 {
     abstract public class MutationType
     {
+        public Random rnd;
         public float mutationChance;
         public abstract Candidate Mutate(Candidate candidate);
         public abstract List<Candidate> MutateList(List<Candidate> population);

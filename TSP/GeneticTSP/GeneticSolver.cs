@@ -14,40 +14,52 @@ namespace GeneticTSP
         public AdjacencyMatrix matrix;
         MutationType mutation;
         SelectionType selector;
-        CrossoverType cosseover;
+        CrossoverType crossover;
         List<Candidate> population;
         List<Candidate> Parents;
         int maxPopulationSize;
         int MaxTime;
         Stopwatch time;
         Candidate bestCandidate;
-        public GeneticSolver(AdjacencyMatrix matrix, MutationType mutation, SelectionType selectionType, int populationSize, int MaxTime)
+        List<float> results;
+        public GeneticSolver(AdjacencyMatrix matrix, MutationType mutation, CrossoverType crossover, SelectionType selectionType, int populationSize, int MaxTime)
         {
+            this.crossover = crossover;
             this.matrix = matrix;
             this.mutation = mutation;
             maxPopulationSize = populationSize;
             selector = selectionType;
             rnd = new Random();
+            this.MaxTime = MaxTime;
+            results = new List<float>();
         }
         public GeneticSolver() {
             MaxTime = 10;
         }//for tests only
         public Candidate Solve()
         {
+            List<Candidate> breedingPool;
+            List<Candidate> newPopulation;
+            List<Candidate> mutants = new List<Candidate>();
             population = randomPopulation(); //create random population
             time = Stopwatch.StartNew();
             while (time.ElapsedMilliseconds < MaxTime * 1000)
             {
-                // Select Breeding pool
-
-                //Crossover
-
-                //Mutation
+                time.Stop();
+                results.Add(findBest(population).fitness);
+                time.Start();
+                breedingPool = selector.generateBreedingPool(population);
                 
+                newPopulation = crossover.CrossoverPopulation(breedingPool);
+                mutants = mutation.MutateList(newPopulation);
+
+                population = mutants;
+             
             }
-            time.Stop();
             
-            return bestCandidate;
+            time.Stop();
+
+            return findBest(population);
         }
 
         public Candidate randomCandidate() //only 1st generation
@@ -79,5 +91,19 @@ namespace GeneticTSP
             return population;
         }
 
+        public Candidate findBest(List<Candidate> population)
+        {
+            Candidate best = population[0];
+            float bestScore = float.MaxValue;
+            foreach(var candidate in population)
+            {
+                if(bestScore>candidate.fitness)
+                {
+                    bestScore = candidate.fitness;
+                    best = candidate;
+                }
+            }
+            return best;
+        }
     }
 }
