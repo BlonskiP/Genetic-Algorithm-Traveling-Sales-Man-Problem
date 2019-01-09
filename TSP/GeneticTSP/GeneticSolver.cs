@@ -48,16 +48,14 @@ namespace GeneticTSP
             time = Stopwatch.StartNew();
             while (time.ElapsedMilliseconds < MaxTime * 1000)
             {
-                time.Stop();
-                results.Add(findBest(population).fitness);
-                time.Start();
+                
                 breedingPool = selector.generateBreedingPool(population);
                 
-                newPopulation = crossover.CrossoverPopulation(breedingPool);
+                newPopulation = crossover.CrossoverPopulation(breedingPool,maxPopulationSize);
                 mutants = mutation.MutateList(newPopulation);
-
+                findBest(population);
                 population = mutants;
-             
+                findBest(population);
             }
             
             time.Stop();
@@ -109,6 +107,9 @@ namespace GeneticTSP
             if(best.fitness<bestCandidate.fitness)
             {
                 bestCandidate = best;
+                time.Stop();
+                results.Add(findBest(population).fitness);
+                time.Start();
             }
             return best;
         }

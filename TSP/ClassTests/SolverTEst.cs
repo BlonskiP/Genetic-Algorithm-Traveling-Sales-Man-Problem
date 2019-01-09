@@ -26,16 +26,16 @@ namespace ClassTests
         [TestMethod]
         public void solverTest()
         {
-            int populationSize = 120;
+            int populationSize = 2000;
             file = root + "\\bays29.xml";
             XDocument tspFile = XDocument.Load(file);
             AdjacencyMatrix testMatrix = new AdjacencyMatrix(tspFile);
             PMXCrossover crossover = new PMXCrossover();
-            TournamentSelection selector = new TournamentSelection(5);
-            InversionMutation inv = new InversionMutation((float)0.01);
+            TournamentSelection selector = new TournamentSelection((int)(5));
+            InversionMutation inv = new InversionMutation((float)0.05);
 
             GeneticSolver solver = new GeneticSolver(
-                testMatrix, inv, crossover,selector, populationSize, 100);
+                testMatrix, inv, crossover,selector, populationSize, 30);
             var result = solver.Solve();
         }
 

@@ -183,12 +183,12 @@ namespace GeneticTSP.CrossoverTypes
             return x;
         }
 
-        public override List<Candidate> CrossoverPopulation(List<Candidate> population)
+        public override List<Candidate> CrossoverPopulation(List<Candidate> population, int populationSize)
         {
             int parentX;
             int parentY;
             List<Candidate> newPopulation = new List<Candidate>();
-            int size = population.Count / 2;
+            int size = populationSize / 2;
             for(int i=0; i<size;i++)
             {
                 parentX =rnd.Next(0, population.Count());

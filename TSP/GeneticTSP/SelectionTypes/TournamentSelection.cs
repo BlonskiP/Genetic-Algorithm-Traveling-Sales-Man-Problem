@@ -18,12 +18,21 @@ namespace GeneticTSP.SelectionTypes
         }
         public override List<Candidate> generateBreedingPool(List<Candidate> candList)
         {
-            while(BreedingPool.Count() !=candList.Count())
+            Candidate winner;
+            List<Candidate> winnerList = new List<Candidate>();
+            int size = (int)(candList.Count() * 0.3);
+            while (BreedingPool.Count() <size)
             {
-                List<Candidate> participants = getRandomCandidates(candList);
-                Candidate winner = Tournament(participants);
+                while (winnerList.Count() <= TournamentSize)
+                {
+                    List<Candidate> participants = getRandomCandidates(candList);
+                    winner = Tournament(participants);
+                    winnerList.Add(winner);
+                }
+                winner = Tournament(winnerList);
                 BreedingPool.Add(winner);
             }
+            BreedingPool.OrderBy(o => o.fitness);
             return BreedingPool;
         }
         private List<Candidate> getRandomCandidates(List<Candidate> candList)
@@ -44,7 +53,7 @@ namespace GeneticTSP.SelectionTypes
             float maxScore = float.MaxValue;
             for(int i=0;i<participants.Count();i++)
             {
-                if(maxScore>participants[i].fitness)
+                if(participants[i].fitness<maxScore)
                 {
                     winner = participants[i];
                     maxScore = participants[i].fitness;

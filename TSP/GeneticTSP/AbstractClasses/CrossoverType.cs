@@ -11,6 +11,6 @@ namespace GeneticTSP
         public Random rnd;
         public abstract List<Candidate> Crossover(Candidate parentX, Candidate parentY);
 
-        public abstract List<Candidate> CrossoverPopulation(List<Candidate> population);
+        public abstract List<Candidate> CrossoverPopulation(List<Candidate> population, int populationSize);
     }
 }
