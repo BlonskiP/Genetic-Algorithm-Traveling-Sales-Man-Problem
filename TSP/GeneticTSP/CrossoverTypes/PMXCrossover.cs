@@ -37,6 +37,12 @@ namespace GeneticTSP.CrossoverTypes
 
             fillMappedGens(ref childXChromosome, mappingArray, parentX);
             fillDoubleMapp(ref childXChromosome, mappingArray, parentX);
+            fillMappedGens(ref childYChromosome, mappingArray, parentY);
+            fillDoubleMapp(ref childYChromosome, mappingArray, parentY);
+            Candidate childX = new Candidate(parentX.generation, childXChromosome.ToList(), parentX.solver);
+            Candidate childY = new Candidate(parentY.generation, childYChromosome.ToList(), parentY.solver);
+            childernList.Add(childX);
+            childernList.Add(childY);
             return childernList;
         }
         public int[,] createMappingArray(Candidate parentX, Candidate parentY, int startIndex, int endIndex)
@@ -87,31 +93,20 @@ namespace GeneticTSP.CrossoverTypes
 
         public void fillMappedGens(ref int[] chromosone, int[,] mappingArray, Candidate parent)
         {
-          
-           
+            int genToMap;
+            int tempGen;
+
             for (int i = 0; i < chromosone.Length; i++)
             {
                 if (chromosone[i] == 0)
                 {
-                    int genToMap = parent.chromoson[i];
-                   
-                    for (int k = 0; k < mappingArray.GetLength(0); k++)
+                    genToMap = parent.chromoson[i];
+                    tempGen = mapInt(mappingArray, genToMap);
+                    if (!chromosone.Contains(tempGen))
                     {
-                        if (genToMap == mappingArray[k, 0])
-                        {
-                            int tempGem = mappingArray[k, 1];
-                            if (!chromosone.Contains(tempGem))
-                                chromosone[i] = tempGem;
-                            break;
-                        }
-                        else if( genToMap == mappingArray[k,1])
-                        {
-                            int tempGem = mappingArray[k, 0];
-                            if (!chromosone.Contains(tempGem))
-                                chromosone[i] = tempGem;
-                            break;
-                        }
+                        chromosone[i] = tempGen;
                     }
+                  
                 }
             }
 
@@ -120,31 +115,72 @@ namespace GeneticTSP.CrossoverTypes
 
         public void fillDoubleMapp(ref int[] chromosone, int[,] mappingArray, Candidate parent)
         {
+            int genToMap;
+            int tempGen;
+            int tempGen2;
             for (int i = 0; i < chromosone.Length; i++)
             {
                 if (chromosone[i] == 0)
                 {
-                    int genToMap = parent.chromoson[i];
+                    genToMap = parent.chromoson[i];
+                    tempGen = doubleMapInt(mappingArray, genToMap);
+                    
+                    if(!chromosone.Contains(tempGen))
+                    {
+                        chromosone[i] = tempGen;
+                    }
 
+                }
+            }
+        }
+        private int mapInt (int[,] mappingArray, int x)
+        {
+            for (int i = 0; i < mappingArray.GetLength(0); i++)
+            {
+                if (x == mappingArray[i, 0])
+                {
+                    return mappingArray[i, 1];
+                }
+                if (x == mappingArray[i, 1])
+                {
+                    return mappingArray[i, 0];
+                }
+            }
+            
+                return x;
+        }
+        private int doubleMapInt(int[,] mappingArray, int x)
+        {
+
+            int temp;
+            for (int i = 0; i < mappingArray.GetLength(0); i++)
+            {
+                if (x == mappingArray[i, 0])
+                {
+                    temp = mappingArray[i, 1];
                     for (int k = 0; k < mappingArray.GetLength(0); k++)
                     {
-                        if (genToMap == mappingArray[k, 0])
+                        if(temp==mappingArray[k,0])
                         {
-                            int tempGem = mappingArray[k, 1];
-                            if (!chromosone.Contains(tempGem))
-                                chromosone[i] = tempGem;
-                            break;
-                        }
-                        else if (genToMap == mappingArray[k, 1])
-                        {
-                            int tempGem = mappingArray[k, 0];
-                            if (!chromosone.Contains(tempGem))
-                                chromosone[i] = tempGem;
-                            break;
+                            return mappingArray[k, 1];
                         }
                     }
                 }
+                if (x == mappingArray[i, 1])
+                {
+                    temp = mappingArray[i, 0];
+                    for (int k = 0; k < mappingArray.GetLength(0); k++)
+                    {
+                        if (temp == mappingArray[k, 1])
+                        {
+                            return mappingArray[k, 0];
+                        }
+                    }
+                }
+
             }
+           
+            return x;
         }
     }
 }

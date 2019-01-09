@@ -11,7 +11,7 @@ namespace GeneticTSP
         public List<int> chromoson;
         public int generation = 0;
         public float fitness;
-        GeneticSolver solver;
+        public GeneticSolver solver;
 
         public Candidate(int generation, List<int> genotype, GeneticSolver solver)
         {
