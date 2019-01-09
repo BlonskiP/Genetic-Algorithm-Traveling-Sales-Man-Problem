@@ -8,5 +8,7 @@ namespace GeneticTSP
 {
     public abstract class CrossoverType
     {
+        public Random rnd;
+        public abstract List<Candidate> Crossover(Candidate parentX, Candidate parentY);
     }
 }
