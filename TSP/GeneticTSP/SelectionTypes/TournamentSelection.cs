@@ -9,6 +9,7 @@ namespace GeneticTSP.SelectionTypes
     public class TournamentSelection : SelectionType
     {
         public int TournamentSize;
+        Random rnd = new Random();
         List<Candidate> BreedingPool;
         public TournamentSelection(int size)
         {
@@ -31,7 +32,7 @@ namespace GeneticTSP.SelectionTypes
             List<Candidate> participants = new List<Candidate>();
             for(int i=0;i<TournamentSize;i++)
             {
-                Random rnd = new Random();
+               
                 int index = rnd.Next(0, candList.Count()-1);
                 participants.Add(candList[index]);
             }

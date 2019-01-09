@@ -27,7 +27,7 @@ namespace ClassTests
 
 
             TournamentSelection selector = new TournamentSelection(2);
-            selector.generateBreedingPool(listCand);
+            listCand = selector.generateBreedingPool(listCand);
 
         }
     }
