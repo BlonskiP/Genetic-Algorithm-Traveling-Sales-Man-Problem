@@ -9,20 +9,23 @@ namespace GeneticTSP.SelectionTypes
     public class TournamentSelection : SelectionType
     {
         public int TournamentSize;
-        Random rnd = new Random();
+        Random rnd;
         List<Candidate> BreedingPool;
         public TournamentSelection(int size)
         {
             TournamentSize = size;
             BreedingPool = new List<Candidate>();
+            rnd = new Random();
         }
         public override List<Candidate> generateBreedingPool(List<Candidate> candList)
         {
+            BreedingPool = new List<Candidate>();
             Candidate winner;
             List<Candidate> winnerList = new List<Candidate>();
             int size = (int)(candList.Count() * 0.3);
             while (BreedingPool.Count() <size)
             {
+                
                 while (winnerList.Count() <= TournamentSize)
                 {
                     List<Candidate> participants = getRandomCandidates(candList);
@@ -30,6 +33,7 @@ namespace GeneticTSP.SelectionTypes
                     winnerList.Add(winner);
                 }
                 winner = Tournament(winnerList);
+                winnerList = new List<Candidate>();
                 BreedingPool.Add(winner);
             }
             BreedingPool.OrderBy(o => o.fitness);
@@ -37,7 +41,7 @@ namespace GeneticTSP.SelectionTypes
         }
         private List<Candidate> getRandomCandidates(List<Candidate> candList)
         {
-           
+            
             List<Candidate> participants = new List<Candidate>();
             for(int i=0;i<TournamentSize;i++)
             {

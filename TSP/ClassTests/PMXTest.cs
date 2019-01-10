@@ -57,8 +57,14 @@ namespace ClassTests
             InversionMutation inv = new InversionMutation((float)0.05);
 
             GeneticSolver solver = new GeneticSolver(testMatrix, inv, crossover, selector, populationSize, 10);
-
-           // crossover.CrossoverPopulation(listCand);
+            List<Candidate> listCand = new List<Candidate>();
+            List<int> GenX = new List<int>() { 5, 20, 28, 18, 14, 2, 27, 25, 8, 4, 19, 13, 12, 17, 11, 15, 16, 9, 3, 10, 22, 21, 1, 7, 24, 6, 23, 26 };
+            List<int> GenY = new List<int>() { 28, 19, 11, 27, 3, 18, 17, 14, 10, 23, 8, 12, 6, 2, 22, 7, 25, 20, 4, 1, 26, 9, 5, 15, 24, 21, 16, 13 };
+            Candidate parentX = new Candidate(1, GenX, solver);
+            Candidate parentY = new Candidate(1, GenY, solver);
+            listCand.Add(parentX);
+            listCand.Add(parentY);
+            crossover.CrossoverPopulation(listCand,10);
 
 
 

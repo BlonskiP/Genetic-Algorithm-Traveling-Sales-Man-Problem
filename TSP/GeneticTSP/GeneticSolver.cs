@@ -16,7 +16,7 @@ namespace GeneticTSP
         SelectionType selector;
         CrossoverType crossover;
         List<Candidate> population;
-        List<Candidate> Parents;
+        
 
         int maxPopulationSize;
         int MaxTime;
@@ -44,15 +44,18 @@ namespace GeneticTSP
             List<Candidate> newPopulation;
             List<Candidate> mutants = new List<Candidate>();
             population = randomPopulation(); //create random population
+            //checkGens(population);  //DEBUG ONLY
             bestCandidate = population[0];
             time = Stopwatch.StartNew();
             while (time.ElapsedMilliseconds < MaxTime * 1000)
             {
                 
                 breedingPool = selector.generateBreedingPool(population);
-                
+               // checkGens(breedingPool); //DEBUG ONLY
                 newPopulation = crossover.CrossoverPopulation(breedingPool,maxPopulationSize);
+                // checkGens(newPopulation);  //DEBUG ONLY
                 mutants = mutation.MutateList(newPopulation);
+              //  checkGens(mutants); //DEBUG ONLY
                 findBest(population);
                 population = mutants;
                 findBest(population);
@@ -112,6 +115,17 @@ namespace GeneticTSP
                 time.Start();
             }
             return best;
+        }
+        private bool checkGens(List<Candidate> candidates)
+        {
+            foreach(var candidate in candidates)
+            {
+                if(candidate.chromoson.Contains(0))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

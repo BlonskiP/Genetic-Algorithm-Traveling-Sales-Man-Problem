@@ -15,10 +15,10 @@ namespace GeneticTSP.CrossoverTypes
         public override List<Candidate> Crossover(Candidate parentX, Candidate parentY)
         {
             List<Candidate> childernList = new List<Candidate>();
-            // int startIndex = rnd.Next(0, parentX.chromoson.Count() - 1);
-            // int endIndex = rnd.Next(0, parentX.chromoson.Count() - 1); //random indexes
-            int startIndex = 3;
-            int endIndex = 7; //only for testing
+             int startIndex = rnd.Next(0, parentX.chromoson.Count() - 1);
+             int endIndex = rnd.Next(0, parentX.chromoson.Count() - 1); //random indexes
+           // int startIndex = 3;
+            //int endIndex = 7; //only for testing
             if (startIndex > endIndex)
             {
                 int temp = startIndex;
@@ -37,12 +37,18 @@ namespace GeneticTSP.CrossoverTypes
 
             fillMappedGens(ref childXChromosome, mappingArray, parentX);
             fillDoubleMapp(ref childXChromosome, mappingArray, parentX);
+
             fillMappedGens(ref childYChromosome, mappingArray, parentY);
             fillDoubleMapp(ref childYChromosome, mappingArray, parentY);
+           
             Candidate childX = new Candidate(parentX.generation, childXChromosome.ToList(), parentX.solver);
             Candidate childY = new Candidate(parentY.generation, childYChromosome.ToList(), parentY.solver);
+           
+            childX.generation = (parentX.generation + 1);
+            childY.generation = (parentY.generation + 1);
             childernList.Add(childX);
             childernList.Add(childY);
+            checkGens(childernList);
             return childernList;
         }
         public int[,] createMappingArray(Candidate parentX, Candidate parentY, int startIndex, int endIndex)
@@ -117,14 +123,25 @@ namespace GeneticTSP.CrossoverTypes
         {
             int genToMap;
             int tempGen;
-            int tempGen2;
+            
+            bool mappingDirection = false; //false X True Y
             for (int i = 0; i < chromosone.Length; i++)
             {
                 if (chromosone[i] == 0)
                 {
                     genToMap = parent.chromoson[i];
-                    tempGen = doubleMapInt(mappingArray, genToMap);
-                    
+                    tempGen = genToMap;
+                    while (chromosone.Contains(tempGen)){
+                        int mapped = directedMap(mappingArray, tempGen, mappingDirection);
+                        if (tempGen==mapped)
+                        {
+                            mappingDirection = !mappingDirection;
+                            
+                        }
+                        tempGen = mapped;
+                            
+
+                    }
                     if(!chromosone.Contains(tempGen))
                     {
                         chromosone[i] = tempGen;
@@ -149,40 +166,41 @@ namespace GeneticTSP.CrossoverTypes
             
                 return x;
         }
-        private int doubleMapInt(int[,] mappingArray, int x)
+        private int directedMap(int[,] mappingArray, int x, bool direction)
         {
+            int mapped = x;
+            if (direction)//Y to X
+                mapped = mapYtoX(mappingArray, x);
+            else mapped = mapXtoY(mappingArray, x);
 
+            return mapped;
+        }
+        private int mapXtoY(int[,] mappingArray, int x)
+        {
             int temp;
             for (int i = 0; i < mappingArray.GetLength(0); i++)
             {
                 if (x == mappingArray[i, 0])
                 {
                     temp = mappingArray[i, 1];
-                    for (int k = 0; k < mappingArray.GetLength(0); k++)
-                    {
-                        if(temp==mappingArray[k,0])
-                        {
-                            return mappingArray[k, 1];
-                        }
-                    }
+                    return temp;
                 }
+            }
+                return x;
+        }
+        private int mapYtoX(int[,] mappingArray, int x)
+        {
+            int temp;
+            for (int i = 0; i < mappingArray.GetLength(0); i++)
+            {
                 if (x == mappingArray[i, 1])
                 {
                     temp = mappingArray[i, 0];
-                    for (int k = 0; k < mappingArray.GetLength(0); k++)
-                    {
-                        if (temp == mappingArray[k, 1])
-                        {
-                            return mappingArray[k, 0];
-                        }
-                    }
+                    return temp;
                 }
-
             }
-           
-            return x;
+                return x;
         }
-
         public override List<Candidate> CrossoverPopulation(List<Candidate> population, int populationSize)
         {
             int parentX;
@@ -191,11 +209,24 @@ namespace GeneticTSP.CrossoverTypes
             int size = populationSize / 2;
             for(int i=0; i<size;i++)
             {
-                parentX =rnd.Next(0, population.Count());
-                parentY =rnd.Next(0, population.Count());
+                 parentX =rnd.Next(0, population.Count());
+                 parentY =rnd.Next(0, population.Count());
+                //parentX = 0;
+                //parentY = 1;
                 newPopulation.AddRange(Crossover(population[parentX], population[parentY]));
             }
             return newPopulation;
+        }
+        private bool checkGens(List<Candidate> candidates) //test only
+        {
+            foreach (var candidate in candidates)
+            {
+                if (candidate.chromoson.Contains(0))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

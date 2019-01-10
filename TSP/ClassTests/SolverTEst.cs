@@ -26,8 +26,8 @@ namespace ClassTests
         [TestMethod]
         public void solverTest()
         {
-            int populationSize = 2000;
-            file = root + "\\bays29.xml";
+            int populationSize = 3000;
+            file = root + "\\berlin52.xml";
             XDocument tspFile = XDocument.Load(file);
             AdjacencyMatrix testMatrix = new AdjacencyMatrix(tspFile);
             PMXCrossover crossover = new PMXCrossover();
@@ -35,7 +35,7 @@ namespace ClassTests
             InversionMutation inv = new InversionMutation((float)0.05);
 
             GeneticSolver solver = new GeneticSolver(
-                testMatrix, inv, crossover,selector, populationSize, 30);
+                testMatrix, inv, crossover,selector, populationSize, 120);
             var result = solver.Solve();
         }
 
