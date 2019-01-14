@@ -11,11 +11,13 @@ namespace GeneticTSP.SelectionTypes
         public int TournamentSize;
         Random rnd;
         List<Candidate> BreedingPool;
+
         public TournamentSelection(int size)
         {
             TournamentSize = size;
             BreedingPool = new List<Candidate>();
             rnd = new Random();
+            this.SelectionName = "TournamentSelection";
         }
         public override List<Candidate> generateBreedingPool(List<Candidate> candList)
         {

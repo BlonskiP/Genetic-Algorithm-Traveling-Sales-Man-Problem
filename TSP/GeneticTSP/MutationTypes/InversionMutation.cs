@@ -12,6 +12,7 @@ namespace GeneticTSP.MutationTypes
         public InversionMutation(float mutationChance)
         {
             this.mutationChance = mutationChance;
+            this.MutationName = "InversionMutation";
             rnd = new Random();
         }
         public override Candidate Mutate(Candidate candidate)

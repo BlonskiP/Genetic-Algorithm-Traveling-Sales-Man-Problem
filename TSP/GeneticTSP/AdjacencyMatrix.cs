@@ -11,8 +11,10 @@ namespace GeneticTSP
    public class AdjacencyMatrix
     {
         public float[,] CostMatrix;
-
+        public string tspFileName;
         public AdjacencyMatrix(XDocument tspFile) {
+            
+            tspFileName = tspFile.Descendants("name").First().Value.ToString();
             var vertexList = tspFile.Descendants("graph").Elements("vertex").ToList();
             int size = vertexList.Count();
             CostMatrix = new float[(int)size, (int)size];

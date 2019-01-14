@@ -8,6 +8,7 @@ namespace GeneticTSP
 {
     public abstract class SelectionType
     {
+        public string SelectionName;
         public abstract List<Candidate> generateBreedingPool(List<Candidate> candList);
     }
 }

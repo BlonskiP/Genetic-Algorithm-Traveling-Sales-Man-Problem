@@ -12,6 +12,8 @@ namespace GeneticTSP
         public int generation = 0;
         public float fitness;
         public GeneticSolver solver;
+        public string time;
+        public Candidate() { }
 
         public Candidate(int generation, List<int> genotype, GeneticSolver solver)
         {

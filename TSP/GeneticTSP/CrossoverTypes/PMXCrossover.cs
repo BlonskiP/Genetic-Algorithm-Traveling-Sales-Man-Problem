@@ -11,6 +11,7 @@ namespace GeneticTSP.CrossoverTypes
         public PMXCrossover()
         {
             rnd = new Random();
+            this.CrossoverName = "PMXCrossover";
         }
         public override List<Candidate> Crossover(Candidate parentX, Candidate parentY)
         {

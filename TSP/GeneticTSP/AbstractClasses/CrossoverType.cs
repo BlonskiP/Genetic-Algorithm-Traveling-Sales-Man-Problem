@@ -9,6 +9,7 @@ namespace GeneticTSP
     public abstract class CrossoverType
     {
         public Random rnd;
+        public string CrossoverName;
         public abstract List<Candidate> Crossover(Candidate parentX, Candidate parentY);
 
         public abstract List<Candidate> CrossoverPopulation(List<Candidate> population, int populationSize);
