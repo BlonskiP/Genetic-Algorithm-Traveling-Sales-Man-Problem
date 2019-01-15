@@ -40,12 +40,27 @@ namespace ClassTests
             var result = solver.Solve();
 
             result.resultToXML();
-            result.ToFile();
+          result.ToFile();
         }
 
         
         [TestMethod]
-        public void asyncSolver()
+        public async Task AsyncSolverAsync()
+        {
+
+
+            Task<Result> task = testAsync();
+            Task<Result> task1 = testAsync();
+            await task;
+            await task1;
+
+            float x = task.Result.bestResult.fitness;
+            float y = task1.Result.bestResult.fitness;
+
+
+
+        }
+       public async Task<Result> testAsync()
         {
             int populationSize = 3000;
             file = root + "\\rbg403.xml";
@@ -57,31 +72,10 @@ namespace ClassTests
 
             GeneticSolver solver = new GeneticSolver(
                 testMatrix, inv, crossover, selector, populationSize, 60);
-            var result = solver.Solve();
-
-            test(solver);
-            solver = new GeneticSolver(
-                testMatrix, inv, crossover, selector, populationSize, 60);
-            test(solver);
-            solver = new GeneticSolver(
-                testMatrix, inv, crossover, selector, populationSize, 60);
-            test(solver);
-            solver = new GeneticSolver(
-                testMatrix, inv, crossover, selector, populationSize, 60);
-            test(solver);
-
-        }
-       public Task<Result> test(GeneticSolver solver)
-        {
-           
             Task<Result> task = Task.Factory.StartNew(() =>solver.Solve());
-            return task;
-
-            
-
-            
-
+            return await task;   
         }
+
 
     }
 }
