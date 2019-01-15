@@ -42,8 +42,8 @@ namespace GeneticTSP.CrossoverTypes
             fillMappedGens(ref childYChromosome, mappingArray, parentY);
             fillDoubleMapp(ref childYChromosome, mappingArray, parentY);
            
-            Candidate childX = new Candidate(parentX.generation, childXChromosome.ToList(), parentX.solver);
-            Candidate childY = new Candidate(parentY.generation, childYChromosome.ToList(), parentY.solver);
+            Candidate childX = new Candidate(parentX.generation, childXChromosome.ToList(), parentX.solver,parentX.solver.time.ElapsedMilliseconds.ToString());
+            Candidate childY = new Candidate(parentY.generation, childYChromosome.ToList(), parentY.solver,parentY.solver.time.ElapsedMilliseconds.ToString());
            
             childX.generation = (parentX.generation + 1);
             childY.generation = (parentY.generation + 1);

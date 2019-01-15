@@ -35,9 +35,10 @@ namespace ClassTests
             InversionMutation inv = new InversionMutation((float)0.05);
 
             GeneticSolver solver = new GeneticSolver(
-                testMatrix, inv, crossover,selector, populationSize, 1);
+                testMatrix, inv, crossover,selector, populationSize, 480);
             var result = solver.Solve();
 
+            result.resultToXML();
             result.ToFile();
         }
 

@@ -12,17 +12,17 @@ namespace GeneticTSP
     {
         Random rnd;
         public AdjacencyMatrix matrix;
-        MutationType mutation;
-        SelectionType selector;
-        CrossoverType crossover;
+        public MutationType mutation;
+        public SelectionType selector;
+        public CrossoverType crossover;
         List<Candidate> population;
-        
-
+        public List<Candidate> bestPerTwoMinutes;
+        int minutes;
         int maxPopulationSize;
         int MaxTime;
-        Stopwatch time;
-        Candidate bestCandidate;
-        List<Candidate> results;
+        public Stopwatch time;
+        public Candidate bestCandidate;
+        public List<Candidate> results;
         public GeneticSolver(AdjacencyMatrix matrix, MutationType mutation, CrossoverType crossover, SelectionType selectionType, int populationSize, int MaxTime)
         {
             this.crossover = crossover;
@@ -33,36 +33,42 @@ namespace GeneticTSP
             rnd = new Random();
             this.MaxTime = MaxTime;
             results = new List<Candidate>();
-
+            time = new Stopwatch();
+           
+            bestPerTwoMinutes = new List<Candidate>();
+            minutes= 0;
         }
         public GeneticSolver() {
             MaxTime = 10;
         }//for tests only
         public Result Solve()
         {
-            Result result = new Result(mutation.MutationName,selector.SelectionName,crossover.CrossoverName,mutation.mutationChance,matrix.tspFileName);
+            Result result = new Result(this);
             List<Candidate> breedingPool;
             List<Candidate> newPopulation;
             List<Candidate> mutants = new List<Candidate>();
             population = randomPopulation(); //create random population
             //checkGens(population);  //DEBUG ONLY
             bestCandidate = population[0];
-            time = Stopwatch.StartNew();
+            
             while (time.ElapsedMilliseconds < MaxTime * 1000)
             {
                 
+                findBest(population);
+                getNextBestTwoMinutesCandidate(population);
+                time.Start();
                 breedingPool = selector.generateBreedingPool(population);
              
                 newPopulation = crossover.CrossoverPopulation(breedingPool,maxPopulationSize);
                
                 mutants = mutation.MutateList(newPopulation);
             
-                findBest(population);
+                
                 population = mutants;
-                findBest(population);
+                time.Stop();
             }
             
-            time.Stop();
+            
 
             result.time = (time.ElapsedMilliseconds / 1000).ToString();
             result.results = results;
@@ -86,7 +92,7 @@ namespace GeneticTSP
                 chromosone.Add(verticles[verticle]);
                 verticles.RemoveAt(verticle);
             }
-            Candidate newCandidate = new Candidate(1,chromosone, this);
+            Candidate newCandidate = new Candidate(1,chromosone, this,time.ElapsedMilliseconds.ToString());
             return newCandidate;
         }
         public List<Candidate> randomPopulation()
@@ -114,9 +120,9 @@ namespace GeneticTSP
             if(best.fitness<bestCandidate.fitness)
             {
                 bestCandidate = best;
-                time.Stop();
+               
                 results.Add(findBest(population));
-                time.Start();
+               
             }
             return best;
         }
@@ -131,5 +137,16 @@ namespace GeneticTSP
             }
             return true;
         }
+
+        private void getNextBestTwoMinutesCandidate(List<Candidate> population)
+        {
+            long timePassed = time.ElapsedMilliseconds/1000;
+            if((timePassed)>=minutes)
+            {
+                bestPerTwoMinutes.Add(findBest(population));
+                minutes = minutes + 2;
+            }
+        }
+        
     }
 }

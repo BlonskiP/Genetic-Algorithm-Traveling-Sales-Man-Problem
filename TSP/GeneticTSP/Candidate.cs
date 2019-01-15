@@ -15,8 +15,9 @@ namespace GeneticTSP
         public string time;
         public Candidate() { }
 
-        public Candidate(int generation, List<int> genotype, GeneticSolver solver)
+        public Candidate(int generation, List<int> genotype, GeneticSolver solver, string time)
         {
+            this.time = time;
             this.generation = generation;
             this.solver = solver;
             chromoson = genotype;

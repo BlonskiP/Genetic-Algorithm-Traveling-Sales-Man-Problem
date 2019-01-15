@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -13,7 +14,8 @@ namespace GeneticTSP
     {
         public Candidate bestResult;
         public List<Candidate> results;
-
+        public List<Candidate> TimeResults;
+       
         public string measureName;
         public string selectionName;
         public string mutationName;
@@ -22,16 +24,21 @@ namespace GeneticTSP
         public string tspFileName;
         public string time;
         public Result() { }
-        public Result(string mutationName, string selectionName, string crossoverName, float mutationChance,string tspFileName) {
-            this.mutationName = mutationName;
-            this.selectionName = selectionName;
-            this.crossoverName = crossoverName;
-            this.mutationChance = mutationChance;
-            this.tspFileName = tspFileName;
-            this.measureName = tspFileName + mutationName + mutationChance + selectionName + crossoverName;
+        public Result(GeneticSolver solver) {
+            mutationName = solver.mutation.MutationName;
+            selectionName = solver.selector.SelectionName;
+            crossoverName = solver.crossover.CrossoverName;
+            mutationChance = solver.mutation.mutationChance;
+            tspFileName = solver.matrix.tspFileName;
+            measureName = tspFileName + mutationName + mutationChance + selectionName + crossoverName;
+            time = solver.time.ElapsedMilliseconds.ToString();
+            bestResult = solver.bestCandidate;
+            results = solver.results;
+            TimeResults = solver.bestPerTwoMinutes;
         }
-        public void ToFile()
+        public XDocument resultToXML()
         {
+            results.Reverse();
             var mutation = new XElement("MutationName", mutationName);
             var selector = new XElement("SelectorName", selectionName);
             var crossover = new XElement("CrossOverName", crossoverName);
@@ -41,12 +48,12 @@ namespace GeneticTSP
             
 
             XDocument fileTree = new XDocument();
-            fileTree.Add(new XElement("TspResultInstance"));
+            fileTree.Add(new XElement("TspResultInstance"),time);
             fileTree.Root.Add(mutation);
             fileTree.Root.Add(selector);
-            fileTree.Root.Add(mutation);
+            fileTree.Root.Add(crossover);
             fileTree.Root.Add(best);
-
+            
             fileTree.Elements().Elements("MutationName").First().Add(mutationChance);
             best = fileTree.Elements().Elements("BestSolution").First();
             best.Add(resultToXElement(bestResult));
@@ -56,16 +63,27 @@ namespace GeneticTSP
             {
                 otherSolutions.Add(resultToXElement(candidate));
             }
-            fileTree.Root.Add(otherSolutions);
+           fileTree.Root.Add(otherSolutions);
+            var timedSolutions = new XElement("TimedSolutioinsPer2minutes");
 
+            foreach(var candidate in TimeResults )
+            {
+                timedSolutions.Add(resultToXElement(candidate));
+            };
+            
+
+            return fileTree;
         }
         XElement resultToXElement(Candidate candidate)
         {
             XElement resultElement = new XElement("Result");
+            var Generation = new XElement("Generation", candidate.generation);
             var Fittnes = new XElement("Fittnes", candidate.fitness);
             var Path = new XElement("Path", Convert(candidate.chromoson));
             var Time = new XElement("Time", candidate.time);
+
             resultElement.Add(Fittnes);
+            resultElement.Add(Generation);
             resultElement.Add(Path);
             resultElement.Add(Time);
             return resultElement;
@@ -77,6 +95,24 @@ namespace GeneticTSP
                 s.AppendFormat("{0} ", i);
 
             return s.ToString();
+        }
+
+        public void ToFile()
+        {
+            string root = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+            string path = root + "\\results";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+               
+            }
+            var doc = resultToXML();
+            path = path + "\\" +this.measureName+".xml";
+            using (FileStream fs = File.Create(path))
+            {
+                doc.Save(fs);
+            }
+
         }
     }
 }
