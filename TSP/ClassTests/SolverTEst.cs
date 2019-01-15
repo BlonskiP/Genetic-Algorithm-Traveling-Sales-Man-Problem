@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using GeneticTSP;
 using GeneticTSP.CrossoverTypes;
@@ -43,8 +44,44 @@ namespace ClassTests
         }
 
         
-        
+        [TestMethod]
+        public void asyncSolver()
+        {
+            int populationSize = 3000;
+            file = root + "\\rbg403.xml";
+            XDocument tspFile = XDocument.Load(file);
+            AdjacencyMatrix testMatrix = new AdjacencyMatrix(tspFile);
+            PMXCrossover crossover = new PMXCrossover();
+            TournamentSelection selector = new TournamentSelection((int)(5));
+            InversionMutation inv = new InversionMutation((float)0.05);
 
+            GeneticSolver solver = new GeneticSolver(
+                testMatrix, inv, crossover, selector, populationSize, 60);
+            var result = solver.Solve();
+
+            test(solver);
+            solver = new GeneticSolver(
+                testMatrix, inv, crossover, selector, populationSize, 60);
+            test(solver);
+            solver = new GeneticSolver(
+                testMatrix, inv, crossover, selector, populationSize, 60);
+            test(solver);
+            solver = new GeneticSolver(
+                testMatrix, inv, crossover, selector, populationSize, 60);
+            test(solver);
+
+        }
+       public Task<Result> test(GeneticSolver solver)
+        {
+           
+            Task<Result> task = Task.Factory.StartNew(() =>solver.Solve());
+            return task;
+
+            
+
+            
+
+        }
 
     }
 }
