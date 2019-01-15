@@ -45,10 +45,11 @@ namespace GeneticTSP
             var mutationChance = new XElement("MutationChance", this.mutationChance.ToString());
             var tsp = new XElement("TspFile", tspFileName);
             var best = new XElement("BestSolution");
-            
+            var timeElement = new XElement("Time", time);
 
             XDocument fileTree = new XDocument();
-            fileTree.Add(new XElement("TspResultInstance"),time);
+            fileTree.Add(new XElement("TspResultInstance"));
+            fileTree.Root.Add(timeElement);
             fileTree.Root.Add(mutation);
             fileTree.Root.Add(selector);
             fileTree.Root.Add(crossover);

@@ -23,6 +23,7 @@ namespace GeneticTSP
         public Stopwatch time;
         public Candidate bestCandidate;
         public List<Candidate> results;
+        public Result result;
         public GeneticSolver(AdjacencyMatrix matrix, MutationType mutation, CrossoverType crossover, SelectionType selectionType, int populationSize, int MaxTime)
         {
             this.crossover = crossover;
@@ -34,8 +35,9 @@ namespace GeneticTSP
             this.MaxTime = MaxTime;
             results = new List<Candidate>();
             time = new Stopwatch();
-           
             bestPerTwoMinutes = new List<Candidate>();
+            result = new Result(this);
+            
             minutes= 0;
         }
         public GeneticSolver() {
@@ -43,7 +45,7 @@ namespace GeneticTSP
         }//for tests only
         public Result Solve()
         {
-            Result result = new Result(this);
+           
             List<Candidate> breedingPool;
             List<Candidate> newPopulation;
             List<Candidate> mutants = new List<Candidate>();
@@ -73,7 +75,8 @@ namespace GeneticTSP
             result.time = (time.ElapsedMilliseconds / 1000).ToString();
             result.results = results;
             result.bestResult = bestCandidate;
-            Trace.WriteLine("Genetic algorithm ended. Best candidate= " + bestCandidate.fitness);
+            Console.WriteLine("INFO FROM" + result.measureName);
+            Console.WriteLine("Genetic algorithm ended: Best candidate= " + bestCandidate.fitness + " TIME: " +time.ElapsedMilliseconds +"Time on result:" +result.time);
             return result;
         }
 
@@ -145,7 +148,7 @@ namespace GeneticTSP
             if((timePassed)>=minutes)
             {
                 bestPerTwoMinutes.Add(findBest(population));
-                minutes = minutes + 2;
+                minutes = minutes + 120;
             }
         }
         
