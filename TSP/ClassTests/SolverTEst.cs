@@ -49,18 +49,24 @@ namespace ClassTests
         {
 
 
-            Task<Result> task = testAsync();
-            Task<Result> task1 = testAsync();
-            await task;
-            await task1;
+            var tasks = new List<Task<Result>>();
+            for(int i=0;i<10;i++)
+            tasks.Add(Task.Factory.StartNew<Result>(() => getSolver().Solve()));
+            List<Result> results = new List<Result>();
+            Task.WaitAll(tasks.ToArray());
+            
+            for(int i=0;i<tasks.Count;i++)
+            {
+                results.Add(tasks[i].Result);
+            }
 
-            float x = task.Result.bestResult.fitness;
-            float y = task1.Result.bestResult.fitness;
+            tasks.Clear();
 
 
 
         }
-       public async Task<Result> testAsync()
+       
+        private GeneticSolver getSolver()
         {
             int populationSize = 3000;
             file = root + "\\rbg403.xml";
@@ -72,10 +78,8 @@ namespace ClassTests
 
             GeneticSolver solver = new GeneticSolver(
                 testMatrix, inv, crossover, selector, populationSize, 60);
-            Task<Result> task = Task.Factory.StartNew(() =>solver.Solve());
-            return await task;   
+            return solver;
         }
-
 
     }
 }
