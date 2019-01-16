@@ -9,6 +9,7 @@ namespace GeneticTSP
     public abstract class SelectionType
     {
         public string SelectionName;
+        public int selectionSize;
         public abstract List<Candidate> generateBreedingPool(List<Candidate> candList);
     }
 }

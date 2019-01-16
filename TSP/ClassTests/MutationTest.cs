@@ -24,7 +24,7 @@ namespace ClassTests
             file = root + "\\bays29.xml";
             XDocument tspFile = XDocument.Load(file);
             AdjacencyMatrix testMatrix = new AdjacencyMatrix(tspFile);
-            PMXCrossover crossover = new PMXCrossover();
+            PMXCrossover crossover = new PMXCrossover((float)(0.80));
             TournamentSelection selector = new TournamentSelection((int)populationSize/2);
             InversionMutation inv = new InversionMutation((float)0.05);
 

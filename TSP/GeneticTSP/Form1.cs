@@ -26,6 +26,7 @@ namespace GeneticTSP
         {
             int populationSize = int.Parse(populationInput.Text.ToString());
             float mutationChance = float.Parse(mutationChanceInput.Text.ToString(), CultureInfo.InvariantCulture);
+            float crossOverChance = float.Parse(crossOverChanceInput.Text.ToString(), CultureInfo.InvariantCulture);
             int time = int.Parse(timeInput.Text.ToString());
             int breedingSize = int.Parse(breedingInput.Text.ToString());
             if (Facade.tspXmlFile == null) { 
@@ -39,7 +40,7 @@ namespace GeneticTSP
             }
             if (Facade.tspXmlFile != null)
             {
-                Facade.createNewSolver(mutationCB.SelectedIndex, CrossoverCB.SelectedIndex, SelectionTypeCB.SelectedIndex, populationSize, mutationChance, time, breedingSize);
+                Facade.createNewSolver(mutationCB.SelectedIndex, CrossoverCB.SelectedIndex, SelectionTypeCB.SelectedIndex, populationSize, mutationChance, time, breedingSize,crossOverChance);
                 UpdateTaskList();
             }
         }

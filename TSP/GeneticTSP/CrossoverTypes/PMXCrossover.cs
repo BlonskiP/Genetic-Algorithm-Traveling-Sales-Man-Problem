@@ -8,49 +8,65 @@ namespace GeneticTSP.CrossoverTypes
 {
     public class PMXCrossover : CrossoverType
     {
-        public PMXCrossover()
+        public PMXCrossover(float crossoverChance)
         {
             rnd = new Random();
             this.CrossoverName = "PMXCrossover";
+            this.CrossoverChance = crossoverChance;
         }
         public override List<Candidate> Crossover(Candidate parentX, Candidate parentY)
         {
-            List<Candidate> childernList = new List<Candidate>();
-             int startIndex = rnd.Next(0, parentX.chromoson.Count() - 1);
-             int endIndex = rnd.Next(0, parentX.chromoson.Count() - 1); //random indexes
-           // int startIndex = 3;
-            //int endIndex = 7; //only for testing
-            if (startIndex > endIndex)
+            List<Candidate> childrenList = new List<Candidate>();
+            float chance = (float)rnd.NextDouble();
+            if (chance < CrossoverChance)
             {
-                int temp = startIndex;
-                startIndex = endIndex;
-                endIndex = temp;
+               
+                int startIndex = rnd.Next(0, parentX.chromoson.Count() - 1);
+                int endIndex = rnd.Next(0, parentX.chromoson.Count() - 1); //random indexes
+                                                                           // int startIndex = 3;
+                                                                           //int endIndex = 7; //only for testing
+                if (startIndex > endIndex)
+                {
+                    int temp = startIndex;
+                    startIndex = endIndex;
+                    endIndex = temp;
+                }
+                int[,] mappingArray = createMappingArray(parentX, parentY, startIndex, endIndex);
+                int[] childXChromosome = new int[parentX.chromoson.Count()];
+                int[] childYChromosome = new int[parentX.chromoson.Count()];
+
+                FillChromosone(ref childXChromosome, startIndex, mappingArray, 1);
+                FillChromosone(ref childYChromosome, startIndex, mappingArray, 0);
+
+                fillMissingGens(ref childXChromosome, parentX, startIndex, endIndex);
+                fillMissingGens(ref childYChromosome, parentY, startIndex, endIndex);
+
+                fillMappedGens(ref childXChromosome, mappingArray, parentX);
+                fillDoubleMapp(ref childXChromosome, mappingArray, parentX);
+
+                fillMappedGens(ref childYChromosome, mappingArray, parentY);
+                fillDoubleMapp(ref childYChromosome, mappingArray, parentY);
+
+                Candidate childX = new Candidate(parentX.generation, childXChromosome.ToList(), parentX.solver, parentX.solver.time.ElapsedMilliseconds.ToString());
+                Candidate childY = new Candidate(parentY.generation, childYChromosome.ToList(), parentY.solver, parentY.solver.time.ElapsedMilliseconds.ToString());
+
+                childX.generation = (parentX.generation + 1);
+                childY.generation = (parentY.generation + 1);
+                childrenList.Add(childX);
+                childrenList.Add(childY);
+                checkGens(childrenList);
             }
-            int[,] mappingArray = createMappingArray(parentX, parentY, startIndex, endIndex);
-            int[] childXChromosome = new int[parentX.chromoson.Count()];
-            int[] childYChromosome = new int[parentX.chromoson.Count()];
-
-            FillChromosone(ref childXChromosome, startIndex, mappingArray, 1);
-            FillChromosone(ref childYChromosome, startIndex, mappingArray, 0);
-
-            fillMissingGens(ref childXChromosome, parentX, startIndex, endIndex);
-            fillMissingGens(ref childYChromosome, parentY, startIndex, endIndex);
-
-            fillMappedGens(ref childXChromosome, mappingArray, parentX);
-            fillDoubleMapp(ref childXChromosome, mappingArray, parentX);
-
-            fillMappedGens(ref childYChromosome, mappingArray, parentY);
-            fillDoubleMapp(ref childYChromosome, mappingArray, parentY);
-           
-            Candidate childX = new Candidate(parentX.generation, childXChromosome.ToList(), parentX.solver,parentX.solver.time.ElapsedMilliseconds.ToString());
-            Candidate childY = new Candidate(parentY.generation, childYChromosome.ToList(), parentY.solver,parentY.solver.time.ElapsedMilliseconds.ToString());
-           
-            childX.generation = (parentX.generation + 1);
-            childY.generation = (parentY.generation + 1);
-            childernList.Add(childX);
-            childernList.Add(childY);
-            checkGens(childernList);
-            return childernList;
+            else
+            {
+                Candidate childX = new Candidate(parentX.generation, parentX.chromoson, parentX.solver, parentX.solver.time.ElapsedMilliseconds.ToString());
+                Candidate childY = new Candidate(parentY.generation, parentY.chromoson, parentY.solver, parentY.solver.time.ElapsedMilliseconds.ToString());
+                childX.generation = (parentX.generation + 1);
+                childY.generation = (parentY.generation + 1);
+                childrenList.Add(childX);
+                childrenList.Add(childY);
+                checkGens(childrenList);
+            }
+            return childrenList;
         }
         public int[,] createMappingArray(Candidate parentX, Candidate parentY, int startIndex, int endIndex)
         {

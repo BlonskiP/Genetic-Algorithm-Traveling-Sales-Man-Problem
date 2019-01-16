@@ -50,6 +50,7 @@
             this.fileInfoLabel = new System.Windows.Forms.Label();
             this.RunBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.crossOverChanceInput = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -140,7 +141,8 @@
             // 
             this.CrossoverCB.FormattingEnabled = true;
             this.CrossoverCB.Items.AddRange(new object[] {
-            "PMXCrossover"});
+            "PMXCrossover",
+            "OXCrossover"});
             this.CrossoverCB.Location = new System.Drawing.Point(12, 72);
             this.CrossoverCB.Name = "CrossoverCB";
             this.CrossoverCB.Size = new System.Drawing.Size(121, 21);
@@ -249,11 +251,19 @@
             this.label2.TabIndex = 22;
             this.label2.Text = "Results will be in folder: Results in xml files";
             // 
+            // crossOverChanceInput
+            // 
+            this.crossOverChanceInput.Location = new System.Drawing.Point(233, 73);
+            this.crossOverChanceInput.Name = "crossOverChanceInput";
+            this.crossOverChanceInput.Size = new System.Drawing.Size(100, 20);
+            this.crossOverChanceInput.TabIndex = 23;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1308, 450);
+            this.Controls.Add(this.crossOverChanceInput);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.RunBtn);
             this.Controls.Add(this.fileInfoLabel);
@@ -307,6 +317,7 @@
         private System.Windows.Forms.Label fileInfoLabel;
         private System.Windows.Forms.Button RunBtn;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox crossOverChanceInput;
     }
 }
 

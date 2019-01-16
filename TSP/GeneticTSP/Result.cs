@@ -21,8 +21,11 @@ namespace GeneticTSP
         public string mutationName;
         public string crossoverName;
         public float mutationChance;
+        public float overCrossChance;
         public string tspFileName;
+        public int selectionSize;
         public string time;
+        public int populationSize;
         public Result() { }
         public Result(GeneticSolver solver) {
             mutationName = solver.mutation.MutationName;
@@ -30,11 +33,16 @@ namespace GeneticTSP
             crossoverName = solver.crossover.CrossoverName;
             mutationChance = solver.mutation.mutationChance;
             tspFileName = solver.matrix.tspFileName;
-            measureName = tspFileName + mutationName + mutationChance + selectionName + crossoverName;
+            overCrossChance = solver.crossover.CrossoverChance;
             time = solver.time.ElapsedMilliseconds.ToString();
+            populationSize = solver.maxPopulationSize;
+            selectionSize = solver.selector.selectionSize;
+            measureName = tspFileName + "Size" +populationSize + mutationName + mutationChance + selectionName+selectionSize + crossoverName+overCrossChance+"TIME"+solver.MaxTime+"s";
+            
             bestResult = solver.bestCandidate;
             results = solver.results;
             TimeResults = solver.bestPerTwoMinutes;
+           
         }
         public XDocument resultToXML()
         {
@@ -43,10 +51,12 @@ namespace GeneticTSP
             var selector = new XElement("SelectorName", selectionName);
             var crossover = new XElement("CrossOverName", crossoverName);
             var mutationChance = new XElement("MutationChance", this.mutationChance.ToString());
+            var CrossoverChance = new XElement("CrossoverChance", this.overCrossChance.ToString());
             var tsp = new XElement("TspFile", tspFileName);
             var best = new XElement("BestSolution");
             var timeElement = new XElement("Time", time);
-
+            var population = new XElement("MaxPopulation", this.populationSize);
+            var selectionSize = new XElement("SelectionSize", this.selectionSize.ToString());
             XDocument fileTree = new XDocument();
             fileTree.Add(new XElement("TspResultInstance"));
             fileTree.Root.Add(timeElement);
@@ -54,8 +64,9 @@ namespace GeneticTSP
             fileTree.Root.Add(selector);
             fileTree.Root.Add(crossover);
             fileTree.Root.Add(best);
-            
+            fileTree.Elements().Elements("SelectorName").First().Add(selectionSize);
             fileTree.Elements().Elements("MutationName").First().Add(mutationChance);
+            fileTree.Elements().Elements("CrossOverName").First().Add(CrossoverChance);
             best = fileTree.Elements().Elements("BestSolution").First();
             best.Add(resultToXElement(bestResult));
 

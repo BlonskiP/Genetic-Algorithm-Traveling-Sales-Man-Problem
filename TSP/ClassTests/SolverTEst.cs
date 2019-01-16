@@ -31,7 +31,7 @@ namespace ClassTests
             file = root + "\\rbg403.xml";
             XDocument tspFile = XDocument.Load(file);
             AdjacencyMatrix testMatrix = new AdjacencyMatrix(tspFile);
-            PMXCrossover crossover = new PMXCrossover();
+            PMXCrossover crossover = new PMXCrossover((float)(0.80));
             TournamentSelection selector = new TournamentSelection((int)(5));
             InversionMutation inv = new InversionMutation((float)0.05);
 
@@ -72,7 +72,7 @@ namespace ClassTests
             file = root + "\\rbg403.xml";
             XDocument tspFile = XDocument.Load(file);
             AdjacencyMatrix testMatrix = new AdjacencyMatrix(tspFile);
-            PMXCrossover crossover = new PMXCrossover();
+            PMXCrossover crossover = new PMXCrossover((float)(0.80));
             TournamentSelection selector = new TournamentSelection((int)(5));
             InversionMutation inv = new InversionMutation((float)0.05);
 

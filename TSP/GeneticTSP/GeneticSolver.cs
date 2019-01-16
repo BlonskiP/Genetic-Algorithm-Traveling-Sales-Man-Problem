@@ -18,8 +18,8 @@ namespace GeneticTSP
         List<Candidate> population;
         public List<Candidate> bestPerTwoMinutes;
         int minutes;
-        int maxPopulationSize;
-        int MaxTime;
+        public int maxPopulationSize;
+        public int MaxTime;
         public Stopwatch time;
         public Candidate bestCandidate;
         public List<Candidate> results;

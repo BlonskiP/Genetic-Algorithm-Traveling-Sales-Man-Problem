@@ -15,6 +15,7 @@ namespace GeneticTSP.SelectionTypes
         public TournamentSelection(int size)
         {
             TournamentSize = size;
+            this.selectionSize = size;
             BreedingPool = new List<Candidate>();
             rnd = new Random();
             this.SelectionName = "TournamentSelection";

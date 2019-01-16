@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -15,11 +16,11 @@ namespace GeneticTSP
     {
         public static List<GeneticSolver> listTask;
         public static XDocument tspXmlFile;
-       static Facade()
+        static Facade()
         {
             listTask = new List<GeneticSolver>();
         }
-        public static void createNewSolver(int mutationIndex, int crossoverIndex, int selectorIndex, int populationSize, float mutationChance, int timeMS, int selectorSize)
+        public static void createNewSolver(int mutationIndex, int crossoverIndex, int selectorIndex, int populationSize, float mutationChance, int timeMS, int selectorSize, float crossoverChance)
         {
             MutationType mutation = null;
             CrossoverType crossover = null;
@@ -29,8 +30,8 @@ namespace GeneticTSP
             {
                 case 0:
                     {
-                        
-                       
+
+
                         mutation = new InversionMutation(mutationChance);
                         break;
                     }
@@ -41,7 +42,12 @@ namespace GeneticTSP
             {
                 case 0:
                     {
-                        crossover = new PMXCrossover();
+                        crossover = new PMXCrossover(crossoverChance);
+                        break;
+                    }
+                case 1:
+                    {
+                        crossover = new OXCrossover(crossoverChance);
                         break;
                     }
             }
@@ -50,18 +56,18 @@ namespace GeneticTSP
             {
                 case 0:
                     {
-                       
+
                         selection = new TournamentSelection(selectorSize);
                         break;
                     }
             }
             GeneticSolver solver = null;//add parameters TO DO
-            if(mutation!=null && selection !=null && crossover != null)
+            if (mutation != null && selection != null && crossover != null)
             {
-                 addNewSolver( new GeneticSolver(matrix, mutation, crossover, selection, populationSize, timeMS));
+                addNewSolver(new GeneticSolver(matrix, mutation, crossover, selection, populationSize, timeMS));
             }
 
-           
+
         }
         public static void addNewSolver(GeneticSolver solver)
         {
@@ -76,23 +82,42 @@ namespace GeneticTSP
         public static void loadNewTspXmlFile(string path)
         {
             tspXmlFile = XDocument.Load(path);
-            
+
         }
 
         public static void runSolution()
         {
             var tasks = new List<Task<Result>>();
-            foreach(var solver in listTask)
+
+            foreach (var solver in listTask)
                 tasks.Add(Task.Factory.StartNew<Result>(() => solver.Solve()));
-          
+
+            Thread defender = new Thread(ClockDefender);
+            defender.Start(tasks);
             Task.WaitAll(tasks.ToArray());
-            foreach(var item in tasks)
+            defender.Abort();
+            foreach (var item in tasks)
             {
                 item.Result.ToFile();
             }
-            
 
-            
+
+
+        }
+
+        static private void ClockDefender(Object data)
+        {
+            while (true) { 
+            List<Task<Result>> taskList = (List<Task<Result>>) data;
+           for(int i=0;i<taskList.Count;i++)
+            {
+                if(listTask[i].time.IsRunning && (taskList[i].Status== TaskStatus.WaitingForActivation || taskList[i].Status== TaskStatus.WaitingToRun))
+                {
+                    listTask[i].time.Stop();
+                }
+            }
+            }
+
         }
 
         internal static void removeTask(int selectedIndex)
