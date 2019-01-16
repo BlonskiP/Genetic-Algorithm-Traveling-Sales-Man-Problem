@@ -51,6 +51,8 @@
             this.RunBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.crossOverChanceInput = new System.Windows.Forms.TextBox();
+            this.crossoverLabel = new System.Windows.Forms.Label();
+            this.selectionlabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -131,7 +133,8 @@
             // 
             this.mutationCB.FormattingEnabled = true;
             this.mutationCB.Items.AddRange(new object[] {
-            "InversionMutation"});
+            "InversionMutation",
+            "TransportMutation"});
             this.mutationCB.Location = new System.Drawing.Point(12, 25);
             this.mutationCB.Name = "mutationCB";
             this.mutationCB.Size = new System.Drawing.Size(121, 21);
@@ -152,7 +155,8 @@
             // 
             this.SelectionTypeCB.FormattingEnabled = true;
             this.SelectionTypeCB.Items.AddRange(new object[] {
-            "TournamentSelection"});
+            "TournamentSelection",
+            "Roulette"});
             this.SelectionTypeCB.Location = new System.Drawing.Point(12, 122);
             this.SelectionTypeCB.Name = "SelectionTypeCB";
             this.SelectionTypeCB.Size = new System.Drawing.Size(121, 21);
@@ -160,7 +164,7 @@
             // 
             // mutationChanceInput
             // 
-            this.mutationChanceInput.Location = new System.Drawing.Point(233, 26);
+            this.mutationChanceInput.Location = new System.Drawing.Point(247, 26);
             this.mutationChanceInput.Name = "mutationChanceInput";
             this.mutationChanceInput.Size = new System.Drawing.Size(100, 20);
             this.mutationChanceInput.TabIndex = 12;
@@ -176,7 +180,7 @@
             // 
             // breedingInput
             // 
-            this.breedingInput.Location = new System.Drawing.Point(233, 122);
+            this.breedingInput.Location = new System.Drawing.Point(247, 123);
             this.breedingInput.Name = "breedingInput";
             this.breedingInput.Size = new System.Drawing.Size(100, 20);
             this.breedingInput.TabIndex = 14;
@@ -253,16 +257,36 @@
             // 
             // crossOverChanceInput
             // 
-            this.crossOverChanceInput.Location = new System.Drawing.Point(233, 73);
+            this.crossOverChanceInput.Location = new System.Drawing.Point(247, 73);
             this.crossOverChanceInput.Name = "crossOverChanceInput";
             this.crossOverChanceInput.Size = new System.Drawing.Size(100, 20);
             this.crossOverChanceInput.TabIndex = 23;
+            // 
+            // crossoverLabel
+            // 
+            this.crossoverLabel.AutoSize = true;
+            this.crossoverLabel.Location = new System.Drawing.Point(139, 80);
+            this.crossoverLabel.Name = "crossoverLabel";
+            this.crossoverLabel.Size = new System.Drawing.Size(102, 13);
+            this.crossoverLabel.TabIndex = 24;
+            this.crossoverLabel.Text = "CrossoverProbability";
+            // 
+            // selectionlabel
+            // 
+            this.selectionlabel.AutoSize = true;
+            this.selectionlabel.Location = new System.Drawing.Point(139, 130);
+            this.selectionlabel.Name = "selectionlabel";
+            this.selectionlabel.Size = new System.Drawing.Size(72, 13);
+            this.selectionlabel.TabIndex = 25;
+            this.selectionlabel.Text = "Selection size";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1308, 450);
+            this.Controls.Add(this.selectionlabel);
+            this.Controls.Add(this.crossoverLabel);
             this.Controls.Add(this.crossOverChanceInput);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.RunBtn);
@@ -318,6 +342,8 @@
         private System.Windows.Forms.Button RunBtn;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox crossOverChanceInput;
+        private System.Windows.Forms.Label crossoverLabel;
+        private System.Windows.Forms.Label selectionlabel;
     }
 }
 

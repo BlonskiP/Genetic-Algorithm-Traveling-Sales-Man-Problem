@@ -18,7 +18,7 @@ namespace GeneticTSP.MutationTypes
         public override Candidate Mutate(Candidate candidate)
         {
             double chance = rnd.NextDouble();
-            //if(chance<mutationChance)
+            if(chance<mutationChance)
             {
                 int endIndex;
                 int startIndex = rnd.Next(0, candidate.chromoson.Count());

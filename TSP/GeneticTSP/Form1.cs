@@ -74,6 +74,7 @@ namespace GeneticTSP
         private void RunBtn_Click(object sender, EventArgs e)
         {
             Facade.runSolution();
+            UpdateTaskList();
         }
 
         private void RemoveTaskBtn_Click(object sender, EventArgs e)

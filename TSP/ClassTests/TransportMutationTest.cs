@@ -11,14 +11,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ClassTests
 {
     [TestClass]
-    public class transportMutationTest
+    public class TransportMutationTest
     {
         private string file;
         string root = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
 
         [TestMethod]
-        public void MutationTest1()
+        public void TransportMutationTest1()
         {
             int populationSize = 2000;
             file = root + "\\bays29.xml";
@@ -26,9 +26,9 @@ namespace ClassTests
             AdjacencyMatrix testMatrix = new AdjacencyMatrix(tspFile);
             PMXCrossover crossover = new PMXCrossover((float)(0.80));
             TournamentSelection selector = new TournamentSelection((int)populationSize/2);
-            InversionMutation inv = new InversionMutation((float)0.05);
+            TranspositionMutation mutation = new TranspositionMutation((float)1);
 
-            GeneticSolver solver = new GeneticSolver(testMatrix, inv, crossover, selector, populationSize, 10);
+            GeneticSolver solver = new GeneticSolver(testMatrix, mutation, crossover, selector, populationSize, 10);
 
             List<Candidate> listCand = solver.randomPopulation();
 
@@ -39,7 +39,7 @@ namespace ClassTests
             parentY.chromoson = new List<int>() { 5, 3, 6, 7, 8, 1, 2, 9, 4, };
 
             
-            inv.Mutate(parentX);
+            mutation.Mutate(parentX);
 
 
 
