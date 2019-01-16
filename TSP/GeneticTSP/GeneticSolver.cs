@@ -69,9 +69,9 @@ namespace GeneticTSP
                 population = mutants;
                 time.Stop();
             }
-            
-            
 
+
+            bestPerTwoMinutes.Add(findBest(population));
             result.time = (time.ElapsedMilliseconds / 1000).ToString();
             result.results = results;
             result.bestResult = bestCandidate;

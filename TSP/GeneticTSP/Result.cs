@@ -76,13 +76,14 @@ namespace GeneticTSP
                 otherSolutions.Add(resultToXElement(candidate));
             }
            fileTree.Root.Add(otherSolutions);
-            var timedSolutions = new XElement("TimedSolutioinsPer2minutes");
 
+            var timedSolutions = new XElement("TimedSolutioinsPer2minutes");
+            if(TimeResults.Count>0)
             foreach(var candidate in TimeResults )
             {
                 timedSolutions.Add(resultToXElement(candidate));
             };
-            
+            fileTree.Root.Add(timedSolutions);
 
             return fileTree;
         }
