@@ -77,6 +77,7 @@ namespace GeneticTSP
             result.bestResult = bestCandidate;
             Console.WriteLine("INFO FROM" + result.measureName);
             Console.WriteLine("Genetic algorithm ended: Best candidate= " + bestCandidate.fitness + " TIME: " +time.ElapsedMilliseconds +"Time on result:" +result.time);
+           
             return result;
         }
 

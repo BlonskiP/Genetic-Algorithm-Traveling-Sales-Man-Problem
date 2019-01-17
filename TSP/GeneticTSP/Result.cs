@@ -47,6 +47,7 @@ namespace GeneticTSP
         public XDocument resultToXML()
         {
             results.Reverse();
+            var instanceName = new XElement("InstanceName", measureName);
             var mutation = new XElement("MutationName", mutationName);
             var selector = new XElement("SelectorName", selectionName);
             var crossover = new XElement("CrossOverName", crossoverName);
@@ -59,6 +60,7 @@ namespace GeneticTSP
             var selectionSize = new XElement("SelectionSize", this.selectionSize.ToString());
             XDocument fileTree = new XDocument();
             fileTree.Add(new XElement("TspResultInstance"));
+            fileTree.Root.Add(instanceName);
             fileTree.Root.Add(timeElement);
             fileTree.Root.Add(mutation);
             fileTree.Root.Add(selector);
@@ -120,8 +122,17 @@ namespace GeneticTSP
                
             }
             var doc = resultToXML();
-            path = path + "\\" +this.measureName+".xml";
-            using (FileStream fs = File.Create(path))
+            path = path + "\\" + this.measureName;
+            int i = 0;
+            string newPath = path;
+            while(File.Exists(newPath+".xml"))
+            {
+                i++;
+                newPath = path;
+                newPath=newPath+"("+i+")";
+                
+            }
+            using (FileStream fs = File.Create(newPath+".xml"))
             {
                 doc.Save(fs);
             }

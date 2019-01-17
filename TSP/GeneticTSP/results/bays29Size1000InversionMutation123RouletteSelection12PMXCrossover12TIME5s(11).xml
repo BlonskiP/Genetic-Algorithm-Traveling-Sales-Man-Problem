@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TspResultInstance>
+  <InstanceName>bays29Size1000InversionMutation123RouletteSelection12PMXCrossover12TIME5s</InstanceName>
+  <Time>5</Time>
+  <MutationName>InversionMutation<MutationChance>123</MutationChance></MutationName>
+  <SelectorName>RouletteSelection<SelectionSize>12</SelectionSize></SelectorName>
+  <CrossOverName>PMXCrossover<CrossoverChance>12</CrossoverChance></CrossOverName>
+  <BestSolution>
+    <Result>
+      <Fittnes>3823</Fittnes>
+      <Generation>54</Generation>
+      <Path>16 10 18 1 2 28 25 19 3 9 8 23 15 5 7 26 22 6 24 13 17 14 21 12 27 11 20 4 </Path>
+      <Time>605</Time>
+    </Result>
+  </BestSolution>
+  <OtherSolutionsWhereBestAtTime>
+    <Result>
+      <Fittnes>3823</Fittnes>
+      <Generation>54</Generation>
+      <Path>16 10 18 1 2 28 25 19 3 9 8 23 15 5 7 26 22 6 24 13 17 14 21 12 27 11 20 4 </Path>
+      <Time>605</Time>
+    </Result>
+    <Result>
+      <Fittnes>4025</Fittnes>
+      <Generation>48</Generation>
+      <Path>1 13 14 17 10 3 24 18 21 9 16 6 15 12 7 26 22 23 5 8 19 28 27 4 11 20 2 25 </Path>
+      <Time>546</Time>
+    </Result>
+    <Result>
+      <Fittnes>4139</Fittnes>
+      <Generation>6</Generation>
+      <Path>20 6 13 21 14 15 9 24 22 5 28 2 25 8 11 19 3 16 17 1 27 4 7 12 23 10 18 26 </Path>
+      <Time>72</Time>
+    </Result>
+    <Result>
+      <Fittnes>4549</Fittnes>
+      <Generation>2</Generation>
+      <Path>5 22 1 28 27 19 3 2 4 11 20 24 6 26 15 9 21 17 13 14 8 25 7 12 18 16 10 23 </Path>
+      <Time>6</Time>
+    </Result>
+    <Result>
+      <Fittnes>4606</Fittnes>
+      <Generation>1</Generation>
+      <Path>22 26 12 18 8 7 6 10 15 27 4 25 9 3 19 20 1 28 17 2 14 23 11 5 24 13 21 16 </Path>
+      <Time>0</Time>
+    </Result>
+  </OtherSolutionsWhereBestAtTime>
+  <TimedSolutioinsPer2minutes>
+    <Result>
+      <Fittnes>4606</Fittnes>
+      <Generation>1</Generation>
+      <Path>22 26 12 18 8 7 6 10 15 27 4 25 9 3 19 20 1 28 17 2 14 23 11 5 24 13 21 16 </Path>
+      <Time>0</Time>
+    </Result>
+    <Result>
+      <Fittnes>4109</Fittnes>
+      <Generation>414</Generation>
+      <Path>27 7 23 1 4 25 8 2 20 11 28 19 3 14 13 18 22 15 9 21 17 24 16 10 12 5 6 26 </Path>
+      <Time>5016</Time>
+    </Result>
+  </TimedSolutioinsPer2minutes>
+</TspResultInstance>

@@ -100,7 +100,7 @@ namespace GeneticTSP
                 tasks.Add(Task.Factory.StartNew<Result>(() => solver.Solve()));
 
             ClockDefender(tasks);
-          
+            Task.WaitAll(tasks.ToArray());
             
           
             foreach (var item in tasks)
@@ -134,9 +134,10 @@ namespace GeneticTSP
 
         private static bool CheckTasks(List<Task<Result>> taskList)
         {
-           foreach(var task in taskList)
+            foreach (var task in taskList)
             {
-                if (task.Status == TaskStatus.WaitingForActivation || task.Status==TaskStatus.WaitingToRun)
+                if (task.Status == TaskStatus.WaitingForActivation || task.Status == TaskStatus.WaitingToRun
+                     || task.Status == TaskStatus.Running || task.Status == TaskStatus.WaitingForChildrenToComplete)
                 {
                     return true;
                 }

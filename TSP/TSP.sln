@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticTSP", "GeneticTSP\Ge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassTests", "ClassTests\ClassTests.csproj", "{F5540279-D03D-44EC-A8EA-4B6EB4313570}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResultManager", "ResultManager\ResultManager.csproj", "{3C6CB8A8-BB07-4FDE-BFD6-F6A46A6799B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F5540279-D03D-44EC-A8EA-4B6EB4313570}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5540279-D03D-44EC-A8EA-4B6EB4313570}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5540279-D03D-44EC-A8EA-4B6EB4313570}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C6CB8A8-BB07-4FDE-BFD6-F6A46A6799B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C6CB8A8-BB07-4FDE-BFD6-F6A46A6799B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C6CB8A8-BB07-4FDE-BFD6-F6A46A6799B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C6CB8A8-BB07-4FDE-BFD6-F6A46A6799B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

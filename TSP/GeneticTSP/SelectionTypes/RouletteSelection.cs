@@ -21,6 +21,7 @@ namespace GeneticTSP.SelectionTypes
         }
         public override List<Candidate> generateBreedingPool(List<Candidate> candList)
         {
+            BreedingPool = new List<Candidate>();
             double FittnesSum = countAllFittnes(candList);
             List<RouletteResult> results = CreateResultsList(candList, FittnesSum);
             double lastP = results[results.Count - 1].to;

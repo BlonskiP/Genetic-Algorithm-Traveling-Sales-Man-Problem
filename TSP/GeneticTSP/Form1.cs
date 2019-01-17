@@ -28,7 +28,7 @@ namespace GeneticTSP
             float mutationChance = float.Parse(mutationChanceInput.Text.ToString(), CultureInfo.InvariantCulture);
             float crossOverChance = float.Parse(crossOverChanceInput.Text.ToString(), CultureInfo.InvariantCulture);
             int time = int.Parse(timeInput.Text.ToString());
-            int breedingSize = int.Parse(breedingInput.Text.ToString());
+            int breedingSize = int.Parse(breedingInput.Text.ToString(), CultureInfo.InvariantCulture);
             if (Facade.tspXmlFile == null) { 
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "tspXMLFile|*.xml";
