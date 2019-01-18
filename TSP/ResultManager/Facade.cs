@@ -47,12 +47,12 @@ namespace ResultManager
             while(File.Exists(newFileName + ".xls"))
             {
                 newFileName = fileName;
-                newFileName += i + ".xls";
+                newFileName += "("+i+")";
               
             }
 
             fillUpExcel(xlWorkSheet);
-
+           
             xlWorkBook.SaveAs(newFileName + ".xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
             xlWorkBook.Close(true, newFileName+".xls", misValue);
             xlApp.Quit();
@@ -64,6 +64,8 @@ namespace ResultManager
 
            
         }
+
+       
 
         private static void fillUpExcel(Worksheet xlWorkSheet)
         {
@@ -79,7 +81,7 @@ namespace ResultManager
                 row++;
                 var nodes = result.Root.Element("OtherSolutionsWhereBestAtTime");
                 var list = nodes.Descendants().Where(x => x.Name == "Result");
-                foreach(var node in list)
+                foreach(var node in list.Reverse())
                 {
                     xlWorkSheet.Cells[row, 1] = node.Element("Generation").Value;
                     xlWorkSheet.Cells[row, 2] = node.Element("Fittnes").Value;

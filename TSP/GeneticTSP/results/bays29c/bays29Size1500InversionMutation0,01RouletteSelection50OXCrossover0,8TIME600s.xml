@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TspResultInstance>
+  <InstanceName>bays29Size1500InversionMutation0,01RouletteSelection50OXCrossover0,8TIME600s</InstanceName>
+  <Time>600</Time>
+  <MutationName>InversionMutation<MutationChance>0,01</MutationChance></MutationName>
+  <SelectorName>RouletteSelection<SelectionSize>50</SelectionSize></SelectorName>
+  <CrossOverName>OXCrossover<CrossoverChance>0,8</CrossoverChance></CrossOverName>
+  <BestSolution>
+    <Result>
+      <Fittnes>3558</Fittnes>
+      <Generation>1204</Generation>
+      <Path>12 15 16 13 9 4 25 28 8 2 1 20 17 14 10 21 24 18 23 26 22 7 11 5 27 3 19 6 </Path>
+      <Time>52912</Time>
+    </Result>
+  </BestSolution>
+  <OtherSolutionsWhereBestAtTime>
+    <Result>
+      <Fittnes>3558</Fittnes>
+      <Generation>1204</Generation>
+      <Path>12 15 16 13 9 4 25 28 8 2 1 20 17 14 10 21 24 18 23 26 22 7 11 5 27 3 19 6 </Path>
+      <Time>52912</Time>
+    </Result>
+    <Result>
+      <Fittnes>3583</Fittnes>
+      <Generation>95</Generation>
+      <Path>4 8 20 19 12 26 24 15 18 14 17 10 21 16 13 9 6 3 7 2 1 23 22 27 5 11 25 28 </Path>
+      <Time>2809</Time>
+    </Result>
+    <Result>
+      <Fittnes>3729</Fittnes>
+      <Generation>48</Generation>
+      <Path>27 11 8 9 17 3 12 19 21 16 13 5 1 18 15 26 7 23 28 2 4 25 20 22 10 14 6 24 </Path>
+      <Time>1381</Time>
+    </Result>
+    <Result>
+      <Fittnes>4005</Fittnes>
+      <Generation>46</Generation>
+      <Path>27 22 12 21 16 17 20 14 3 19 8 5 1 18 15 26 7 23 28 2 4 11 25 9 6 13 24 10 </Path>
+      <Time>1324</Time>
+    </Result>
+    <Result>
+      <Fittnes>4030</Fittnes>
+      <Generation>43</Generation>
+      <Path>27 26 7 12 13 24 10 16 14 17 19 6 21 18 3 23 22 20 5 11 8 25 4 15 28 1 9 2 </Path>
+      <Time>1280</Time>
+    </Result>
+    <Result>
+      <Fittnes>4057</Fittnes>
+      <Generation>28</Generation>
+      <Path>5 8 19 12 10 21 28 2 27 22 23 6 18 24 14 9 13 16 17 3 20 15 26 11 4 1 25 7 </Path>
+      <Time>895</Time>
+    </Result>
+    <Result>
+      <Fittnes>4101</Fittnes>
+      <Generation>22</Generation>
+      <Path>23 7 26 15 21 28 2 11 5 8 27 10 9 13 16 19 6 22 20 3 24 18 14 17 12 4 25 1 </Path>
+      <Time>661</Time>
+    </Result>
+    <Result>
+      <Fittnes>4192</Fittnes>
+      <Generation>21</Generation>
+      <Path>23 12 9 22 7 4 5 19 8 27 26 15 10 21 28 2 11 6 3 17 13 16 14 18 24 1 25 20 </Path>
+      <Time>612</Time>
+    </Result>
+    <Result>
+      <Fittnes>4240</Fittnes>
+      <Generation>11</Generation>
+      <Path>1 9 16 6 3 21 24 18 20 12 17 13 8 4 23 15 26 27 7 22 10 14 28 25 11 5 19 2 </Path>
+      <Time>314</Time>
+    </Result>
+    <Result>
+      <Fittnes>4352</Fittnes>
+      <Generation>7</Generation>
+      <Path>26 18 21 16 12 9 10 6 14 22 7 5 24 15 8 28 2 4 23 11 20 27 1 17 13 3 19 25 </Path>
+      <Time>176</Time>
+    </Result>
+    <Result>
+      <Fittnes>4522</Fittnes>
+      <Generation>6</Generation>
+      <Path>9 12 10 19 17 16 13 3 6 14 21 22 7 5 24 15 25 8 28 2 4 23 11 18 26 20 27 1 </Path>
+      <Time>153</Time>
+    </Result>
+    <Result>
+      <Fittnes>4637</Fittnes>
+      <Generation>3</Generation>
+      <Path>2 20 25 11 1 4 8 28 22 7 23 19 14 18 6 16 24 27 26 17 21 9 13 15 12 10 3 5 </Path>
+      <Time>80</Time>
+    </Result>
+    <Result>
+      <Fittnes>4654</Fittnes>
+      <Generation>1</Generation>
+      <Path>7 26 1 10 13 12 6 27 20 25 28 4 8 9 14 18 24 19 5 22 15 2 16 17 21 3 11 23 </Path>
+      <Time>0</Time>
+    </Result>
+  </OtherSolutionsWhereBestAtTime>
+  <TimedSolutioinsPer2minutes>
+    <Result>
+      <Fittnes>4654</Fittnes>
+      <Generation>1</Generation>
+      <Path>7 26 1 10 13 12 6 27 20 25 28 4 8 9 14 18 24 19 5 22 15 2 16 17 21 3 11 23 </Path>
+      <Time>0</Time>
+    </Result>
+    <Result>
+      <Fittnes>4390</Fittnes>
+      <Generation>1832</Generation>
+      <Path>5 8 15 3 21 24 18 9 14 22 6 16 17 23 11 27 26 28 25 2 20 4 19 12 10 13 1 7 </Path>
+      <Time>119875</Time>
+    </Result>
+    <Result>
+      <Fittnes>4555</Fittnes>
+      <Generation>2488</Generation>
+      <Path>16 17 8 28 26 2 9 4 5 11 25 27 22 7 15 23 12 14 20 19 13 10 21 3 1 24 6 18 </Path>
+      <Time>239631</Time>
+    </Result>
+    <Result>
+      <Fittnes>4790</Fittnes>
+      <Generation>3119</Generation>
+      <Path>15 18 26 22 19 4 27 7 5 1 21 2 11 8 23 12 14 16 10 9 3 25 28 17 6 24 13 20 </Path>
+      <Time>360012</Time>
+    </Result>
+    <Result>
+      <Fittnes>4187</Fittnes>
+      <Generation>3737</Generation>
+      <Path>25 1 11 27 24 15 3 14 8 20 12 7 16 10 18 22 26 23 9 17 6 21 13 19 5 4 28 2 </Path>
+      <Time>479656</Time>
+    </Result>
+    <Result>
+      <Fittnes>4565</Fittnes>
+      <Generation>4414</Generation>
+      <Path>17 13 21 16 19 23 7 24 2 28 26 6 11 5 8 27 4 25 15 22 14 1 18 10 20 12 9 3 </Path>
+      <Time>600243</Time>
+    </Result>
+  </TimedSolutioinsPer2minutes>
+</TspResultInstance>
